@@ -1,26 +1,27 @@
 import React from 'react';
+import { StyleSheetTestUtils } from 'aphrodite';
 import Header from './Header';
 import { shallow } from 'enzyme';
-import { StyleSheetTestUtils } from 'aphrodite';
 
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
 
-describe('Testing <Header /> Component', () => {
-  let wrapper;
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
-  beforeEach(() => {
-    StyleSheetTestUtils.suppressStyleInjection();
-    wrapper = shallow(<Header />);
+describe('rendering components', () => {
+  it('renders Header component without crashing', () => {
+    const wrapper = shallow(<Header />);
+
+    expect(wrapper.exists()).toBe(true);
   });
 
-  it("Renders with out crashing", () => {
-    expect(wrapper).toBeDefined();
-  });
+  it('Header renders img and h1 tags', () => {
+    const wrapper = shallow(<Header />);
 
-  it("Render an h1 tag", () => {
-    expect(wrapper.find('h1')).toBeDefined();
-  });
-
-  it("Render an img tag", () => {
-    expect(wrapper.find('img')).toBeDefined();
-  });
+    expect(wrapper.exists('img')).toBe(true);
+    expect(wrapper.exists('h1')).toBe(true);
+  })
 });
